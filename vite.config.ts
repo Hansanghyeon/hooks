@@ -16,29 +16,4 @@ export default defineConfig({
   define: {
     'process.env': {},
   },
-  build: {
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name,
-      formats: ['es', 'cjs', 'umd'],
-      fileName: (format) => {
-        let f;
-        switch (format) {
-          case 'es':
-            f = 'mjs';
-            break;
-          case 'cjs':
-            f = 'cjs';
-            break;
-          case 'umd':
-            f = 'umd.js';
-            break;
-          default:
-            break;
-        }
-        
-        return `index.${f}`
-      },
-    },
-  }
 })

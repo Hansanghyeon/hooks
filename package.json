@@ -1,12 +1,20 @@
 {
   "name": "@hyeon/react-use",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "prepublishOnly": "npm run build",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:js": "rollup -c --bundleConfigAsCjs",
+    "build": "npm run build:types && npm run build:js",
     "dev": "npm run storybook",
-    "build:type": "tsc -p tsconfig.build.json",
-    "build": "npm run build:type && vite build",
-    "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
@@ -15,9 +23,15 @@
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "fp-ts": "^2.16.0",
+    "react": "^18.2.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.2",
+    "@babel/preset-react": "^7.22.3",
+    "@babel/preset-typescript": "^7.21.5",
     "@hyeon/mac-scrollbar": "^1.0.2",
     "@storybook/addon-essentials": "^7.0.18",
     "@storybook/addon-interactions": "^7.0.18",
@@ -36,11 +50,17 @@
     "@types/react": "^18.2.7",
     "@vitest/ui": "^0.29.2",
     "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "babel-plugin-macros": "^3.1.0",
     "jsdom": "^22.0.0",
     "postcss": "^8.4.23",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "sass": "^1.62.1",
     "storybook": "^7.0.18",
     "storybook-dark-mode": "^3.0.0",
@@ -50,18 +70,6 @@
     "vite-plugin-dts": "^2.0.2",
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.29.2"
-  },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.es.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

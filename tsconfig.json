@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["src", "types"],
+  "include": ["packages", "types", "index.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"
