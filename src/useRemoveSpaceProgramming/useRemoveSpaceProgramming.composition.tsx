@@ -12,5 +12,5 @@ export default function () {
       test_3: 'test3'
     }
   })
-  return <div>{JSON.stringify(result)}</div>
+  return <pre>{JSON.stringify(result)}</pre>
 }

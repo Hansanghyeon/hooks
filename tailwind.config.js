@@ -1,6 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    './.storybook/**/*.tsx',
+    './.storybook/**/*.ts',
+    './.storybook/**/*.css',
+    './.storybook/**/*.scss',
+    './src/**/*.tsx',
+    './src/**/*.ts',
+    './src/**/*.css',
+    './src/**/*.scss',
+  ],
   theme: {
     extend: {},
   },
@@ -8,6 +17,7 @@ export default {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
+    require('@hyeon/mac-scrollbar')
   ],
 }
 
