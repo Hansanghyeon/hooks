@@ -20,7 +20,7 @@ const useRemoveSpaceProgramming = <T extends Record<Key, Value>>(
   initialState: T,
   fn: (record?: string) => string = camelCase
 ): [T, (record: T) => void] => {
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState(<T>convertKeys(initialState, fn))
 
   const setStateWithCamelCase = useCallback(
     (record: T) => setState(<T>convertKeys(record, fn)),
