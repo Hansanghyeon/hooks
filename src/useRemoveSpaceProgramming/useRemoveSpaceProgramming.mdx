@@ -1,0 +1,25 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import * as useRemoveSpaceProgrammingStories from './useRemoveSpaceProgramming.stories';
+
+<Meta of={useRemoveSpaceProgrammingStories} name="미리보기" />
+
+## 인풋 코드
+
+```
+{
+  camel_case: 'camelCase',
+  snake_case: 'snake_case',
+  PascalCase: 'PascalCase',
+  'kebab-case': 'kebab-case',
+  depth_test: {
+    test_1: 'test',
+    test_2: 'test2',
+    test_3: 'test3'
+  }
+}
+```
+
+## 데모
+
+<Canvas of={useRemoveSpaceProgrammingStories.Default} className="p-none" />

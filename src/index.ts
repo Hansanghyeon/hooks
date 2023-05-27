@@ -1,1 +1,1 @@
-export * from './useRemoveSpaceProgramming'
+export * from './useRemoveSpaceProgramming/useRemoveSpaceProgramming'

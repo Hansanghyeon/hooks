@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["src", "types"],
+  "exclude": [
+    "node_modules",
+    "src/**/*.composition.tsx",
+    "src/**/*.stories.tsx",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.tsx",
+    "src/**/*.spec.ts"
+  ]
+}
