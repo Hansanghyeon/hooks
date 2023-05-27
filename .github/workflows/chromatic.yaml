@@ -22,10 +22,8 @@ jobs:
       - name: Install dependencies & build
         # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g., yarn, npm, pnpm
         run: |
-          yarn
-          yarn build-storybook
-        # env:
-        #   ENV: ${{ secrets.env }}
+          npm install
+          npm run build-storybook
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish Project react-components to Chromatic
         uses: chromaui/action@v1
