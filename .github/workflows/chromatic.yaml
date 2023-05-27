@@ -31,5 +31,3 @@ jobs:
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # jobs의 default로 workdir를 변경해서 작동하는 것은 안된다. path오류가있음
-          storybookBuildDir: ./storybook-static
