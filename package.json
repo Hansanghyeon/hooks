@@ -1,6 +1,27 @@
 {
+  "name": "@hyeon/react-use",
+  "version": "0.0.0",
+  "description": "Collection of React Hooks",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "sideEffectes": false,
+  "files": [
+    "lib/",
+    "esm/"
+  ],
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build:cjs": "tsc"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "dependencies": {
-    "init": "^0.1.2"
+    "init": "^0.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
