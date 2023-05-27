@@ -1,0 +1,122 @@
+.docblock-argstable {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+body.dark {
+  .docs-story {
+    background-color: #1B1C1D;
+  }
+  .sbdocs-wrapper {
+    background-color: #1B1C1D;
+    color: #eee;
+  }
+  .sbdocs-preview, .sbdocs-preview > div {
+    background-color: #222425;
+  }
+  .sbdocs-preview > div:first-child {
+    background-color: #292C2E;
+  }
+  .sbdocs-preview .docblock-code-toggle {
+    background-color: #1B1C1D;
+    color: #eee
+  }
+  .sbdocs-preview .docs-story > div:last-child {
+    background-color: transparent
+  }
+
+  .docblock-argstable thead >tr>* {
+    background-color: #292C2E;
+    color: #eee;
+  }
+  .docblock-argstable tbody >tr>* {
+    background-color: #222425;
+    color: #eee;
+  }
+
+  .sbdocs-content {
+    @apply prose prose-invert xl:max-w-[1000px];
+  }
+
+  .docblock-source.docblock-source {
+    @apply prose prose-invert xl:max-w-[1000px] bg-transparent shadow-none;
+    @import './codeblock-dark';
+
+    :where(pre):not(:where([class~="not-prose"] *)) {
+      @apply m-0;
+      background: hsl(220, 13%, 18%);
+      color: hsl(220, 14%, 71%);
+      text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+      font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+      direction: ltr;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      line-height: 1.5;
+      -moz-tab-size: 2;
+      -o-tab-size: 2;
+      tab-size: 2;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+
+
+      &::-webkit-scrollbar {
+        width: 6.4px;
+        height: 6.4px;
+      }
+      &::-webkit-scrollbar, &::-webkit-scrollbar-thumb {
+        overflow: visible;
+        border-radius: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,.1)
+      }
+    }
+  }
+  
+  .sbdocs > pre {
+    background: transparent;
+    padding: 0;
+  }
+}
+
+body.light {
+  .sbdocs-content {
+    @apply prose xl:max-w-[1000px];
+  }
+
+  .docblock-source.docblock-source {
+    @apply prose xl:max-w-[1000px] bg-transparent shadow-none;
+    @import './codeblock-light';
+
+    :where(pre):not(:where([class~="not-prose"] *)) {
+      @apply m-0;
+
+      &::-webkit-scrollbar {
+        width: 6.4px;
+        height: 6.4px;
+      }
+      &::-webkit-scrollbar, &::-webkit-scrollbar-thumb {
+        overflow: visible;
+        border-radius: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,.1)
+      }
+    }
+  }
+  
+  .sbdocs > pre {
+    background: transparent;
+    padding: 0;
+  }
+}
+
+.sbdocs {
+  .sb-anchor + * {
+    margin-top: 0 !important;
+  }
+}

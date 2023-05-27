@@ -1,0 +1,20 @@
+html, body {
+  min-height: 100%;
+}
+body.dark {
+  background-color: #1B1C1D;
+}
+
+.sb-show-main.sb-main-padded {
+  padding: 0;
+}
+
+#storybook-root {
+  height: 100%;
+}
+
+.sbdocs {
+  &.p-none > div > div {
+    padding: 0;
+  }
+}
