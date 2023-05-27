@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run storybook",
     "build:type": "tsc -p tsconfig.build.json",
     "build": "npm run build:type && vite build",
     "preview": "vite preview",

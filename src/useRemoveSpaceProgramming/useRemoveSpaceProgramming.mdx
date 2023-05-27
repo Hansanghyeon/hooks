@@ -4,7 +4,24 @@ import * as useRemoveSpaceProgrammingStories from './useRemoveSpaceProgramming.s
 
 <Meta of={useRemoveSpaceProgrammingStories} name="미리보기" />
 
-## 인풋 코드
+## 설명
+
+> 프로그래밍에서의 공백 제거
+
+프로그래밍을 할 때 우리는 보통 단어 사이의 공백을 제거하고 `camel case` `snake case` `pascal case` `kebab case` 등의 형태로 작성합니다.
+
+이를 위해서 우리는 보통 `replace` 를 사용합니다.
+
+```js
+const camelCase = 'camel case'.replace(/ /g, '');
+const snakeCase = 'snake case'.replace(/ /g, '_');
+const pascalCase = 'pascal case'.replace(/ /g, '_');
+const kebabCase = 'kebab case'.replace(/ /g, '-');
+```
+
+이렇게 하면 공백을 제거할 수 있습니다.
+
+객체의 몇 단계에 거친 키값을 변경해야한다면?
 
 ```
 {
@@ -18,6 +35,39 @@ import * as useRemoveSpaceProgrammingStories from './useRemoveSpaceProgramming.s
     test_3: 'test3'
   }
 }
+```
+
+이렇게 생긴 객체를 예로들어서
+
+```
+{
+  camelCase: 'camelCase',
+  snakeCase: 'snake_case',
+  pascalCase: 'PascalCase',
+  kebabCase: 'kebab-case',
+  depthTest: {
+    test1: 'test',
+    test2: 'test2',
+    test3: 'test3'
+  }
+}
+```
+이렇게 손쉽게 바꿀수 있도록 react-hook을 만들었습니다.
+
+기본 값을 camelCase로 변경하는 것입니다.
+
+```js
+const [result] = useRSP({
+  camel_case: 'camelCase',
+  snake_case: 'snake_case',
+  PascalCase: 'PascalCase',
+  'kebab-case': 'kebab-case',
+  depth_test: {
+    test_1: 'test',
+    test_2: 'test2',
+    test_3: 'test3'
+  }
+}, fn) // fn 은 (key) => key로 변경하는 함수를 넣을 수 있다.
 ```
 
 ## 데모
