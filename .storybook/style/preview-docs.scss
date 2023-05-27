@@ -81,6 +81,17 @@ body.dark {
     background: transparent;
     padding: 0;
   }
+
+  :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
+    color: inherit;
+    font-size: inherit;
+  }
+
+  :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) code {
+    @apply bg-slate-700;
+    color: inherit;
+    border: none;
+  }
 }
 
 body.light {
@@ -112,6 +123,10 @@ body.light {
   .sbdocs > pre {
     background: transparent;
     padding: 0;
+  }
+
+  :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
+    color: inherit
   }
 }
 
