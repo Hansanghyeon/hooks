@@ -1,0 +1,51 @@
+name: chromatic-deployment
+
+# path를 설정해도되는이유 github branch옵션에서 gha의 이름만 선택해서 선택한 이름 모두가 통과하면 merge할 수 있게한다면 모든 소스코드를 테스트하지 않아도된다.
+on:
+  push:
+    paths:
+      - "src/**/*"
+      - ".github/workflows/chromatic.yaml"
+  workflow_dispatch:
+
+# List of jobs
+jobs:
+  deployment:
+    name: chromatic-deployment
+    # Operating System
+    runs-on: hyeon
+    # Job steps
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 👈 Required to retrieve git history
+      # ===============================
+      # self-host runner로하면서 생긴 step
+      # 프로덕션으로 옮기면 제거해야함
+      # ===============================
+      - name: Installing NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: global install yarn
+        run: npm install -g yarn
+      # ===============================
+      # self-host runner로하면서 생긴 step
+      # 프로덕션으로 옮기면 제거해야함
+      # ===============================
+      - name: Install dependencies & build
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g., yarn, npm, pnpm
+        run: |
+          yarn
+          yarn build-storybook
+        # env:
+        #   ENV: ${{ secrets.env }}
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish Project react-components to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # jobs의 default로 workdir를 변경해서 작동하는 것은 안된다. path오류가있음
+          storybookBuildDir: ./storybook-static

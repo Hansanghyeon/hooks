@@ -1,7 +1,7 @@
 import { useRSP } from './useRemoveSpaceProgramming'
 
 export default function () {
-  const [result, setResult] = useRSP({
+  const [result] = useRSP({
     camel_case: 'camelCase',
     snake_case: 'snake_case',
     PascalCase: 'PascalCase',
