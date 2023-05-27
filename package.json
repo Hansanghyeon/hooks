@@ -12,15 +12,20 @@
   "types": "lib/index.d.ts",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build:cjs": "tsc"
+    "build:cjs": "tsc",
+    "build:es": "tsc -m esNext --outDir esm",
+    "build": "yarn build:cjs && yarn build:es"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "fp-ts": "^2.16.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tslib": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
@@ -28,6 +33,7 @@
     "@babel/preset-env": "^7.22.2",
     "@babel/preset-react": "^7.22.0",
     "@babel/preset-typescript": "^7.21.5",
+    "@types/lodash": "^4.14.195",
     "@types/react": "^18.2.7",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.1.0",
