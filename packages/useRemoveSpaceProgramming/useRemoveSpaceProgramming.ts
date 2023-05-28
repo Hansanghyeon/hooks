@@ -7,10 +7,14 @@ import { useCallback, useState } from 'react'
 type RecordObject = Record<string, unknown>;
 
 // 이 hook에서 메인이 되는 함수이다.
+// 이 함수가 pipe에서 실행되려면?
+// object
+// 변형된 형식이라서 T타입으로 리턴하게되면 안된다.
+// 받아온 타입을 추론해서 리턴하도록 해야한다.
 function transformObjectKeys<T extends RecordObject>(
   obj: T,
   transformFn: (key?: string) => string = camelCase
-): T {
+): RecordObject {
   return pipe(
     obj,
     R.reduceWithIndex(Ord)({}, (key, acc, value) => {
