@@ -40,3 +40,5 @@ export const useRemoveSpaceProgramming = <T extends RecordObject>(initialState: 
 
 export const useRSP = useRemoveSpaceProgramming
 export default useRemoveSpaceProgramming
+export const useObj2KeyMap = useRemoveSpaceProgramming
+export const obj2keyMap = transformObjectKeys

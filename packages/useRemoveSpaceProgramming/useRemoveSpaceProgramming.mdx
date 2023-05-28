@@ -57,6 +57,13 @@ const kebabCase = 'kebab case'.replace(/ /g, '-');
 기본 값을 camelCase로 변경하는 것입니다.
 
 ```js
+import { useRSP, useRemoveSpaceProgramming, useObj2KeyMap, obj2keyMap } from '@hyeon/react-use'
+
+// useRSP, useRemoveSpaceProgramming, useObj2KeyMap 훅입니다. alias
+// obj2keyMap는 hook이 아닌 함수입니다.
+```
+
+```js
 const [result] = useRSP({
   camel_case: 'camelCase',
   snake_case: 'snake_case',
@@ -70,6 +77,13 @@ const [result] = useRSP({
 }, fn) // fn 은 (key) => key로 변경하는 함수를 넣을 수 있다.
 ```
 
+
 ## 데모
 
 <Canvas of={useRemoveSpaceProgrammingStories.Default} className="p-none" />
+
+## 불가능
+
+**tree 구조의 객체만 가능합니다.**
+
+tree 구조에서 배열이나 배열 안쪽의 객체의 키는 변경할 수 없습니다.
