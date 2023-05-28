@@ -6,17 +6,18 @@ import { useCallback, useState } from 'react'
 
 type RecordObject = Record<string, unknown>;
 
-function transformObjectKeys<T>(
-  obj: RecordObject,
-  transformFn: (key?: string) => T = <(v?: string) => T>camelCase
-): RecordObject {
+// 이 hook에서 메인이 되는 함수이다.
+function transformObjectKeys<T extends RecordObject>(
+  obj: T,
+  transformFn: (key?: string) => string = camelCase
+): T {
   return pipe(
     obj,
     R.reduceWithIndex(Ord)({}, (key, acc, value) => {
       const transformedKey = transformFn(key);
       const transformedValue =
         typeof value === 'object'
-          ? transformObjectKeys(value as RecordObject, transformFn)
+          ? transformObjectKeys(value as T, transformFn)
           : value;
 
       return {
@@ -24,7 +25,7 @@ function transformObjectKeys<T>(
         [transformedKey as string]: transformedValue,
       };
     })
-  );
+  ) as T; // TODO: 받아온 타입을 그대로 반환하도록 하는 더 좋은 방법 타입을 추론할 수 있도록
 }
 
 export const useRemoveSpaceProgramming = <T extends RecordObject>(initialState: T): [T, (v: T) => void] => {
