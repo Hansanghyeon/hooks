@@ -4,7 +4,7 @@ import { Ord } from 'fp-ts/string'
 import { camelCase } from 'lodash'
 import { useCallback, useState } from 'react'
 
-type RecordObject = Record<string, unknown>;
+type RecordObject = Record<string, any>;
 
 // 이 hook에서 메인이 되는 함수이다.
 // 이 함수가 pipe에서 실행되려면?
@@ -20,8 +20,8 @@ function transformObjectKeys<T extends RecordObject>(
     R.reduceWithIndex(Ord)({}, (key, acc, value) => {
       const transformedKey = transformFn(key);
       const transformedValue =
-        typeof value === 'object'
-          ? transformObjectKeys(value as T, transformFn)
+        typeof value === 'object' && value !== null && !Array.isArray(value)
+          ? transformObjectKeys(value, transformFn)
           : value;
 
       return {
@@ -29,11 +29,12 @@ function transformObjectKeys<T extends RecordObject>(
         [transformedKey as string]: transformedValue,
       };
     })
-  ) as T; // TODO: 받아온 타입을 그대로 반환하도록 하는 더 좋은 방법 타입을 추론할 수 있도록
+  );
 }
 
-export const useRemoveSpaceProgramming = <T extends RecordObject>(initialState: T): [T, (v: T) => void] => {
-  const [value, setValue] = useState(transformObjectKeys(initialState))
+
+export const useRemoveSpaceProgramming = <T extends RecordObject>(initialState: T, fn?: (key?: string) => string): [T, (v: T) => void] => {
+  const [value, setValue] = useState(transformObjectKeys(initialState, fn))
 
   const setRemoveSpaceProgramming = useCallback(
     (tree: T) => setValue(tree),

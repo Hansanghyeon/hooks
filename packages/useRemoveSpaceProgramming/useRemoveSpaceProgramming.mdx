@@ -87,3 +87,74 @@ const [result] = useRSP({
 **tree 구조의 객체만 가능합니다.**
 
 tree 구조에서 배열이나 배열 안쪽의 객체의 키는 변경할 수 없습니다.
+
+## 리뷰 (ai)
+
+```ts
+type RecordObject = Record<string, unknown>;
+
+// 이 hook에서 메인이 되는 함수이다.
+// 이 함수가 pipe에서 실행되려면?
+// object
+// 변형된 형식이라서 T타입으로 리턴하게되면 안된다.
+// 받아온 타입을 추론해서 리턴하도록 해야한다.
+function transformObjectKeys<T extends RecordObject>(
+  obj: T,
+  transformFn: (key?: string) => string = camelCase
+): RecordObject {
+  return pipe(
+    obj,
+    R.reduceWithIndex(Ord)({}, (key, acc, value) => {
+      const transformedKey = transformFn(key);
+      const transformedValue =
+        typeof value === 'object'
+          ? transformObjectKeys(value as T, transformFn)
+          : value;
+
+      return {
+        ...acc,
+        [transformedKey as string]: transformedValue,
+      };
+    })
+  ) as T; // TODO: 받아온 타입을 그대로 반환하도록 하는 더 좋은 방법 타입을 추론할 수 있도록
+}
+```
+
+해당 코드를 리뷰해보면, `transformObjectKeys` 함수가 각각의 객체 키를 변환하고, 그 값이 객체일 경우 재귀적으로 같은 변환을 수행하도록 작성되어있습니다. 이것은 좋은 접근 방식입니다.
+
+주된 개선점은 `RecordObject`의 타입이 `Record<string, unknown>`으로 제한적인데, 이는 재귀적으로 객체의 모든 값을 처리할 수 없습니다. 즉, 중첩된 객체가 있으면 타입에러가 발생할 수 있습니다.
+
+이를 개선하기 위해, 좀 더 유연한 타입을 사용할 수 있습니다. `unknown` 대신 `any`를 사용하면, 어떤 값이든 처리할 수 있게 됩니다.
+
+```ts
+type RecordObject = Record<string, any>;
+```
+
+다음으로, `transformObjectKeys` 함수의 반환 타입을 `T`에서 `RecordObject`로 변경하면 더 일반적인 함수가 될 수 있습니다. `T`를 반환타입으로 사용하면, 입력 객체의 키가 출력 객체의 키와 일치하게끔 강제하는 효과가 있습니다. 이는 `transformFn` 함수가 키를 변경하는 경우 문제가 될 수 있습니다.
+
+따라서, `transformObjectKeys` 함수는 다음과 같이 작성할 수 있습니다
+
+```ts
+function transformObjectKeys<T extends RecordObject>(
+  obj: T,
+  transformFn: (key?: string) => string = camelCase
+): RecordObject {
+  return pipe(
+    obj,
+    R.reduceWithIndex(Ord)({}, (key, acc, value) => {
+      const transformedKey = transformFn(key);
+      const transformedValue =
+        typeof value === 'object' && value !== null && !Array.isArray(value)
+          ? transformObjectKeys(value, transformFn)
+          : value;
+
+      return {
+        ...acc,
+        [transformedKey as string]: transformedValue,
+      };
+    })
+  );
+}
+```
+
+이러한 변경사항은 `transformObjectKeys` 함수가 더 일반적인 사용 사례에 적합하게 해줍니다. 또한 이 함수는 이제 모든 객체를 처리할 수 있으며, 재귀 호출에서 타입 안정성을 보장합니다.
