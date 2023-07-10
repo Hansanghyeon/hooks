@@ -1,0 +1,16 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import * as UseDeepMergeStories from './useDeepMerge.stories';
+
+<Meta of={UseDeepMergeStories} name="docs" />
+
+`Lodash`에서 자주 사용하던 `_.merge(obj, obj)`를 fp-ts를 사용해서 typescript에서도 deep merge를 할 수 있게 만들었습니다.
+
+이렇게 좋은 기능을 가진 함수를 왜 `fp-ts`에서는 만들지 않았을까? 의문이 생겼습니다.
+
+> 인스턴스를 사용하여 동일한 유형의 구조체를 병합할 수 있지만 `Monoid` (참고 `getStructMonoid`) 구조체를 다른 인터페이스와 병합하려고 하는데 해당 작업에 대한 타입 클래스가 없습니다. 그러나 최대 4개의 인수를 병합할 수 있다는 점을 제외하고 함수 `Object.assign`과 동일합니다.
+> 4개 이상의 객체를 병합할때 Typescript에서 any를 얻습니다.
+
+`Object.assign`이 더 효과적이었습니다. 타입을 이리저리 추론하지 않아도 Typescript는 awesome하게 모두다 추론 가능했습니다.
+
+<Canvas of={UseDeepMergeStories.Default} />
